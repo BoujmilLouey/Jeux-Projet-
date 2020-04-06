@@ -1,20 +1,35 @@
-charac initChar (){
-  charac c;
-  char ch[512];
-  int i;
-  for (i = 0; i < 12; i++) {
-      sprintf(ch, "_____", i+1);
-    c.spriteright[i] = IMG_Load(ch);
-  }
-  for (i = 0; i < 11; i++) {
-      sprintf(ch, "___________________", i+1);
-    c.spriteleft[i] = IMG_Load(ch);
-  c.jump = IMG_Load("_____________________________");
-  c.jump_left = IMG_Load("________________________");
-  c.positionChar.x = ;
-  c.positionChar.y = ;
-  c.scorePos.x = ;
-  c.scorePos.y = ;
-  c.posLives.y = ;
-  return c;
-}
+#ifndef CHARACTER_H_INCLUDED
+#define CHARACTER_H_INCLUDED
+#include <stdio.h>
+#include <stdlib.h>
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
+#include "SDL/SDL_mixer.h"
+
+typedef struct {
+ SDL_Surface * spriteleft[11];
+ SDL_Surface * spriteright[11];
+ SDL_Surface * jump;
+ SDL_Surface * jump_left;
+ SDL_Rect pmaxChar;
+ SDL_Rect pminChar;
+ SDL_Rect positionChar;
+ SDL_Surface *livestext;
+ SDL_Surface *scoretext;
+ SDL_Rect scorePos;
+ SDL_Rect posLives;
+ int lives;
+ int score;
+ state s;
+}charac;
+charac initChar ();
+char animChar (charac c, SDL_Surface *screen, SDL_Event event, char whichDirection);
+char animCharMouse (charac c, SDL_Surface *screen, SDL_Event event);
+SDL_Surface * updateScore(int *score);
+SDL_Surface * updateLives(int *lives);
+state restoreState();
+#endif
+
+
+
+
